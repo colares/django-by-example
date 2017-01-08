@@ -21,7 +21,7 @@ def results(request, question_id):
     })
 
 def vote(request, question_id):
-    question = get_object_or_404(Question, pl=question_id)
+    question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
@@ -37,4 +37,4 @@ def vote(request, question_id):
         # após sucesso com data POST.
         # Isso evita o envio do dado novamente
         # caso o usuário clique no botão de voltar
-        return HttpResponseRedirect(reverse('pols:results', args=(question.id,)))
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
